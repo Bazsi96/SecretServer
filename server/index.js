@@ -12,4 +12,6 @@ app.use(bodyParser.json());
 const secretRoute = require('./routes/Secret');
 app.use('/api/secret', secretRoute);
 
+app.use(express.static(__dirname + '/public/'));
+
 module.exports = app;

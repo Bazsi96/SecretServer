@@ -12,24 +12,13 @@
 - If the command ran successfully you can reach the website on the http://localhost:8080
 
 ### In case any error:
-##### Setup server
+##### Setup 
    - in the root folder:
       ```
       cd server
       npm install
-      node server.js
+      node start (this command build the client directory to the server/public/)
       ```
-
-#### Setup client
-   - open other propmt
-   - in the root folder:
-      ```
-      cd client
-      npm install
-      npm run serve
-      ```
-   - Now you can reach the website on the http://localhost:8080
-
 #### To run test cases
    ```
    cd server
