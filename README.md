@@ -15,10 +15,14 @@
 ##### Setup 
    - in the root folder:
       ```
+      cd client
+      npm install
+      cd..
       cd server
       npm install
-      node start (this command build the client directory to the server/public/)
+      npm run start (this command build the client directory to the server/public/)
       ```
+   - now you can reach the website on the http://localhost:5555
 #### To run test cases
    ```
    cd server
