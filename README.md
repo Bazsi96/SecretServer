@@ -15,7 +15,7 @@
 ##### Setup server
    - in the root folder:
       ```
-      cd \server
+      cd server
       npm install
       node server.js
       ```
@@ -24,7 +24,8 @@
    - open other propmt
    - in the root folder:
       ```
-      cd \client
+      cd client
       npm install
       npm run serve
       ```
+   - Now you can reach the website on the http://localhost:8080
