@@ -1,1 +1,1 @@
-api: node server/server.js
+start: node server/server.js
