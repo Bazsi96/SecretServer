@@ -29,3 +29,9 @@
       npm run serve
       ```
    - Now you can reach the website on the http://localhost:8080
+
+#### To run test cases
+   ```
+   cd server
+   npm run test
+   ```

@@ -12,10 +12,4 @@ app.use(bodyParser.json());
 const secretRoute = require('./routes/Secret');
 app.use('/api/secret', secretRoute);
 
-// For heroku deployment
-if(process.env.NODE_ENV.trim() == "production") {
-   console.log("HALOHALO")
-   app.use(express.static('../client/dist'));
-}
-
 module.exports = app;
