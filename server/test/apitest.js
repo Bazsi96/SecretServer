@@ -20,7 +20,7 @@ describe('Secret Server API Testing', () => {
   });
 
   /**
-   * Test GET metthod without params 
+   * Test GET metthod with random parameter 
    */
   describe('Testing /api/secret/[random parameter]', () => {
     it('It should be return "invalid hash" string', (done) => {
@@ -35,7 +35,7 @@ describe('Secret Server API Testing', () => {
   });
 
   /**
-   * Test POST method without params 
+   * Test POST method
    */
   describe('Testing POST method', () => {
     it('It should be add a secret', (done) => {

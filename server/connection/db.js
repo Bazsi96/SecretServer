@@ -6,8 +6,8 @@ function connect() {
    return new Promise((resolve, reject) => {
       if (process.env.NODE_ENV === 'test') {
          const Mockgoose = require('mockgoose').Mockgoose;
-         const mockgoose = new Mockgoose(mongoose);
-         mockgoose.prepareStorage()
+         const mockDB = new Mockgoose(mongoose);
+         mockDB.prepareStorage()
             .then(() => {
                mongoose.connect(DB_URI, {
                      useNewUrlParser: true,

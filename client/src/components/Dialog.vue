@@ -50,25 +50,27 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      inputType: String,
-      valid: Boolean,
-      validate: Function,
-      value: String,
-      btnTitle: String,
-      btnClass: String,
-      eventClick: Function,
-      headline: String,
-      color: String,
-      remainingViews: Number,
-      invalid: Boolean,
-      mindiff: Number
-    },
-    data: () => ({
-      dialog: false,
-    }),
-  }
+
+export default {
+  props: {
+    inputType: String,
+    valid: Boolean,
+    validate: Function,
+    value: String,
+    btnTitle: String,
+    btnClass: String,
+    eventClick: Function,
+    headline: String,
+    color: String,
+    remainingViews: Number,
+    invalid: Boolean,
+    mindiff: Number
+  },
+  data: () => ({
+    dialog: false,
+  }),
+}
+
 </script>
 <style scoped>
   .tobottom {
