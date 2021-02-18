@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Secret = require('../models/Secret');
-const {
-   minutesDifferent
-} = require('../utils/mindiff');
 const createHash = require('hash-generator');
 const hashLength = 5;
 
@@ -26,9 +23,6 @@ router.get('/:hash', async (req, res) => {
       });
 
       if (secret != null) {
-         // Calculate the different
-         const differentInMinutes = minutesDifferent(new Date(), new Date(secret.createdAt));
-
          if (secret.remainingViews <= 0) {
             res.json({
                message: "You have reached the maximum number of views available!"
@@ -72,7 +66,7 @@ router.post('/', async (req, res) => {
       hash: createHash(hashLength),
       secretText: req.body.secret,
       remainingViews: req.body.expireAfterViews,
-      expiresAt: req.body.expireAfter == 0 ? 0 :new Date(new Date().getTime() + (parseInt(req.body.expireAfter) * 60 * 1000)).getTime(),
+      expiresAt: req.body.expireAfter == 0 ? 0 : new Date(new Date().getTime() + (parseInt(req.body.expireAfter) * 60 * 1000)).getTime(),
       createdAt: new Date().getTime(),
    });
    try {
