@@ -1,14 +1,17 @@
 <template>
-   <v-form ref="form" v-model="valid" lazy-validation>
+   <v-form ref="form">
    <p class="display-1 text--primary">
      Already have a secret?
    </p>
    <p>Paste in the field your hash to see your secret!</p>
     <v-text-field v-model="hash" :rules="hashRules" label="Hash" required></v-text-field>
      <Dialog 
-        v-bind:valid="valid"
+        v-bind:valid="isDisable"
         v-bind:validate="validate"
-        v-bind:value="value"
+        v-bind:value="secret"
+        v-bind:remainingViews="remainingViews"
+        v-bind:invalid="invalid"
+        v-bind:mindiff="mindiff"
         btnTitle="Get My secret!"
         btnClass="tobottom"
         :eventClick="validate"
@@ -28,27 +31,45 @@ export default {
     Dialog,
   },
   data: () => ({
-    valid: false,
     hash: '',
     hashRules: [
       v => !!v || 'Hash is required'
     ],
-    value: ''
+    secret: '',
+    remainingViews: 0,
+    mindiff: 0,
+    invalid: false
   }),
+  computed: {
+      isDisable() {
+        if(this.hash != '')
+          return true
+        else
+          return false;
+     },
+    },
   methods: {
     validate () {
-      this.$refs.form.validate()
       axios.get(location.protocol+'//'+location.hostname+':'+process.env.VUE_APP_SERVER_PORT+process.env.VUE_APP_API_PATH_GET+this.hash)
         .then((response) => {
-          if(typeof response.data != "undefined") {
-            this.value = response.data.secretText;
+          if(typeof response.data != "undefined" && typeof response.data.message == 'undefined') {
+            this.secret = response.data.secretText;
+            this.remainingViews = response.data.remainingViews;
+            this.mindiff = response.data.expiresAt == 0 ? null : this.calculateMinDiff(response.data.expiresAt - new Date().getTime())
+            this.invalid = false;
           } else {
-            this.value = response.data.message
+            this.secret = response.data.message,
+            this.invalid = true;
           }
         })
         .catch(function (error) {
           console.log(error);
         });
+    },
+    calculateMinDiff (difference) {
+      let minutesDifference = Math.floor(difference/1000/60);
+      difference -= minutesDifference*1000*60
+      return minutesDifference;
     },
   },
 }

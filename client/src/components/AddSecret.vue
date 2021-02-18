@@ -24,6 +24,7 @@
       required
     ></v-text-field>
     <Dialog 
+        inputType="field"
         v-bind:valid="isDisable"
         v-bind:value="hash"
         btnTitle="Add secret!"
@@ -51,7 +52,7 @@ import axios from 'axios'
         Dialog
      },
     data: () => ({
-      secret: null,
+      secret: '',
       expireAfterViews: '',
       expireAfter: '',
       dialog: false,
@@ -60,15 +61,18 @@ import axios from 'axios'
         v => !!v || 'Name is required'
       ],
       expireAfterViewsRules: [
-        v => !!v || 'This field required'
+        v => (v && v >= 1) || 'This field required and must bigger than 1'
       ],
       expireAfterRules: [
-        v => !!v || 'This field required'
+        v => (v && v >= 0) || 'This field required and must bigger or equal than 0'
       ],
     }),
     computed: {
       isDisable() {
-          return this.secret === null ? false : true;
+        if(this.secret != '' && this.expireAfterViews != '' && this.expireAfter != '')
+          return true
+        else
+          return false;
      },
     },
     methods: {
@@ -86,7 +90,9 @@ import axios from 'axios'
         });
       },
       clear () {
-        this.$refs.form.reset()
+        this.secret = '';
+        this.expireAfterViews = '';
+        this.expireAfter = '';
       },
     },
   }
