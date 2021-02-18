@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const SecretSchema = new Schema({
    hash: String,
    secretText: String,
-   createdAt: Date,
+   createdAt: Number,
    expiresAt: Number,
    remainingViews: Number,
    expireAfterViews: Number,

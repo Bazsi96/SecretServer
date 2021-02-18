@@ -29,18 +29,30 @@ router.get('/:hash', async (req, res) => {
          // Calculate the different
          const differentInMinutes = minutesDifferent(new Date(), new Date(secret.createdAt));
 
-         if (secret.remainingViews == 0) {
+         if (secret.remainingViews <= 0) {
             res.json({
                message: "You have reached the maximum number of views available!"
             });
          } else if (secret.expiresAt == 0 && secret.remainingViews != 0) {
-            res.json(secret);
-         } else if (differentInMinutes >= secret.expiresAt) {
             res.json({
-               message: "The secret is expired!"
+               hash: secret.hash,
+               secretText: secret.secretText,
+               createdAt: secret.createdAt,
+               expiresAt: secret.expiresAt,
+               remainingViews: secret.remainingViews
+            });
+         } else if (secret.expiresAt <= new Date().getTime()) {
+            res.json({
+               message: "The secret is expired!",
             });
          } else {
-            res.json(secret);
+            res.json({
+               hash: secret.hash,
+               secretText: secret.secretText,
+               createdAt: secret.createdAt,
+               expiresAt: secret.expiresAt,
+               remainingViews: secret.remainingViews
+            });
          }
       } else {
          res.json({
@@ -60,12 +72,18 @@ router.post('/', async (req, res) => {
       hash: createHash(hashLength),
       secretText: req.body.secret,
       remainingViews: req.body.expireAfterViews,
-      expiresAt: req.body.expireAfter,
-      createdAt: new Date(),
+      expiresAt: req.body.expireAfter == 0 ? 0 :new Date(new Date().getTime() + (parseInt(req.body.expireAfter) * 60 * 1000)).getTime(),
+      createdAt: new Date().getTime(),
    });
    try {
       const savedSecret = await secret.save();
-      res.json(savedSecret);
+      res.json({
+         hash: savedSecret.hash,
+         secretText: savedSecret.secretText,
+         createdAt: savedSecret.createdAt,
+         expiresAt: savedSecret.expiresAt,
+         remainingViews: savedSecret.remainingViews
+      });
    } catch (error) {
       res.json({
          message: error
