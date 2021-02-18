@@ -11,13 +11,8 @@ import Main from './components/Main';
 
 export default {
   name: 'App',
-
   components: {
     Main,
   },
-
-  data: () => ({
-    //
-  }),
 };
 </script>
