@@ -20,7 +20,8 @@
       cd..
       cd server
       npm install
-      npm run start (this command build the client directory to the server/public/)
+      // To serve in one process, run this command below
+      npm run start
       ```
    - now you can reach the website on the http://localhost:5555
 #### To run test cases

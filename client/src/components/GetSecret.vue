@@ -42,7 +42,7 @@ export default {
   }),
   computed: {
       isDisable() {
-        if(this.hash != '')
+        if(this.hash)
           return true
         else
           return false;
@@ -67,8 +67,8 @@ export default {
         });
     },
     calculateMinDiff (difference) {
-      let minutesDifference = Math.floor(difference/1000/60);
-      difference -= minutesDifference*1000*60
+      let minutesDifference = Math.floor(difference / 1000 / 60);
+      difference -= minutesDifference * 1000 * 60
       return minutesDifference;
     },
   },

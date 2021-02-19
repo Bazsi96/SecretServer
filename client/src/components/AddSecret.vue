@@ -69,7 +69,7 @@ export default {
   }),
   computed: {
     isDisable() {
-      if(this.secret != '' && this.expireAfterViews != '' && this.expireAfter != '')
+      if(this.secret && this.expireAfterViews && this.expireAfter)
         return true
       else
         return false;
